@@ -9,20 +9,16 @@
  * @param {number[]} numbers
  * @return {number}
  */
-var removeDuplicates = function(numbers) {
-    const o = {}
-
-    const arr = []
-
-    for(let i = 0; i < numbers.length; i++) {
-        if(!o[numbers[i]]) {
-            arr.push(numbers[i])
-
-            o[numbers[i]] = 1
+var removeDuplicates = function(nums) {
+    let slowIndex = 1;
+    for (let fastIndex = 1; fastIndex < nums.length; fastIndex++) {
+        if (nums[fastIndex] !== nums[fastIndex - 1]) {
+            nums[slowIndex] = nums[fastIndex];
+            slowIndex++;
         }
     }
-
-    return arr
+    return slowIndex;
 };
+
 // @lc code=end
 
