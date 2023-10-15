@@ -17,22 +17,51 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var levelOrder = function(root) {
-    const stacks = []
+// var levelOrder = function(root) {
+//     const stacks = []
 
-    const traverse = (node, level) => {
-        if (!node) return
+//     const traverse = (node, level) => {
+//         if (!node) return
 
-        if (!stacks[level]) stacks[level] = []
-        stacks[level].push(node.val)
+//         if (!stacks[level]) stacks[level] = []
+//         stacks[level].push(node.val)
 
-        traverse(node.left, level + 1)
-        traverse(node.right, level + 1)
+//         traverse(node.left, level + 1)
+//         traverse(node.right, level + 1)
+//     }
+
+//     traverse(root, 0)
+
+//     return stacks
+// };
+
+var levelOrder = function (root) {
+    if (root === null) return []
+    const lists = []
+    const queue = [root]
+
+    while (queue.length) {
+        const levelNode = []
+
+        const len = queue.length
+
+        for (let i = 0; i < len; i++) {
+            const node = queue.shift()
+            levelNode.push(node.val)
+
+            if (node.left !== null) {
+                queue.push(node.left)
+            }
+
+            if (node.right !== null) {
+                queue.push(node.right)
+            }
+        }
+
+        lists.push(levelNode)
     }
 
-    traverse(root, 0)
-
-    return stacks
+    return lists
 };
 // @lc code=end
 
