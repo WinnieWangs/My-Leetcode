@@ -17,26 +17,34 @@
  * @param {TreeNode} root
  * @return {number}
  */
-let min = 2 ^ 32
 var minDepth = function (root) {
-    if (root === null) return 0
+    if (!root) return 0
+    let depth = 0
+    let queue = [root]
 
-    runner(root, 1)
+    while(queue.length) {
+        depth++
+        const len = queue.length
 
-    return min
+        for(let i = 0; i < len; i++) {
+            const node = queue.shift()
+
+            if (node.left === null && node.right === null) {
+                queue = []
+                break;
+            }
+
+            if (node.left !== null) {
+                queue.push(node.left)
+            }
+
+            if (node.right !== null) {
+                queue.push(node.right)
+            }
+        }
+    }
+
+    return depth
 };
-
-const runner = (root, depth) => {
-    if (root === null || (root.left === null && root.right === null)) {
-        min = Math.min(min, depth)
-    }
-
-    if (depth < min) {
-        if (root.left !== null) runner(root.left, depth + 1)
-        if (root.right !== null) runner(root.right, depth + 1)
-    }
-}
-
-
 // @lc code=end
 
