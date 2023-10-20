@@ -17,29 +17,6 @@
  * @param {TreeNode} root
  * @return {number}
  */
-// var findSecondMinimumValue = function (root) {
-//     if (!root) return -1
-//     const min = root.val
-//     let res = -1
-
-//     const dfs = node => {
-//         if (node === null) return
-
-//         const { val, left, right } = node
-
-//         if (res !== -1 && val >= res) return
-
-//         if (val > min) res = val
-
-//         dfs(left)
-//         dfs(right)
-//     }
-
-//     dfs(root)
-
-//     return res
-// };
-
 var findSecondMinimumValue = function (root) {
     let res = Number.MAX_SAFE_INTEGER
     if (!root) return res
