@@ -19,26 +19,21 @@
  * @return {boolean}
  */
 var hasPathSum = function(root, targetSum) {
-    if (root === null) return false
     let flag = false
+    if (root === null) return flag
 
-    const traverse = (node, sum) => {
+    const traverse = (node, sum = 0) => {
+        if (flag) return
         if (node === null) return 0
-
-        sum = sum + node.val
-
-        const sumLeft = traverse(node.left, sum) + sum
-        const sumRight = traverse(node.right, sum) + sum
-
-        if (node.left || node.right) return
-        if (sumLeft === targetSum || sumRight === targetSum) {
-            return flag = true
+        sum += node.val
+        if (node.left === null && node.right === null && sum === targetSum) {
+            flag = true
         }
+        traverse(node.left, sum)
+        traverse(node.right, sum)
     }
 
-    traverse(root, 0)
-
-    return flag
+    return traverse(root), flag
 };
 // @lc code=end
 
