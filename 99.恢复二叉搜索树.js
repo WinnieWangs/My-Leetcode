@@ -13,6 +13,7 @@
  *     this.right = (right===undefined ? null : right)
  * }
  */
+
 var recoverTree = function (root) {
     let t1 = t2 = pre = null
 
@@ -34,9 +35,7 @@ var recoverTree = function (root) {
     traverse(root)
 
     const temp = t1.val
-
     t1.val = t2.val
-
     t2.val = temp
 };
 // @lc code=end
