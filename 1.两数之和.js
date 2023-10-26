@@ -11,17 +11,21 @@
  * @return {number[]}
  */
 const twoSum = (nums, target) => {
-    const map = {};
+  const map = {}
 
-    for (let i = 0; i < nums.length; i++) {
-        const current  = nums[i];
-        const diff = target - current;
-        const diffIndex = map[diff];
-        if (diffIndex !== undefined) {
-            return [diffIndex, i];
-        }
-        map[current] = i;
+  for (let i = 0; i < nums.length; i++) {
+    const current = nums[i];
+
+    const diff = target - current
+
+    const diffIndex = map[diff]
+
+    if (map[diff] !== undefined) {
+      return [i, diffIndex]
     }
+
+    map[current] = i
+
+  }
 }
 // @lc code=end
-
