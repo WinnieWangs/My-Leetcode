@@ -9,23 +9,16 @@
  * @param {string} s
  * @return {string}
  */
-var removeDuplicates = function (s) {
-    const arr = []
-    let index = 0
-
-    while (index < s.length) {
-        const current = s.charAt(index)
-
-        if (arr[arr.length - 1] === current) {
-            arr.pop()
+const removeDuplicates = s => {
+    let stack = []
+    for (char of s) {
+        if (stack.length && stack[stack.length - 1] == char) {
+            stack.pop()
         } else {
-            arr.push(current)
+            stack.push(char)
         }
-
-        index++
     }
-
-    return arr.join('')
+    return stack.join('')
 };
 // @lc code=end
 
