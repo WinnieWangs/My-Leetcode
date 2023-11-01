@@ -18,11 +18,8 @@ var solveNQueens = function (n) {
         for (let i = row - 1; i >= 0; i--) {
             const currentRow = chessboard[i]
             const horizontalDistance = row - i
-            // 纵向
             if (currentRow[col] === 'Q') return false
-            // 左上
             if (currentRow[col - horizontalDistance] === 'Q') return false
-            // 右上
             if (currentRow[col + horizontalDistance] === 'Q') return false
         }
         return true
