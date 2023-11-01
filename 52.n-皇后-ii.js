@@ -10,26 +10,18 @@
  * @return {number}
  */
 var totalNQueens = function (n) {
-    const board = Array.from({ length: n }, () => Array(n).fill('.'))
+    const chessboard = Array.from({ length: n }, () => Array(n).fill(false))
 
     let count = 0
 
     const isValid = (row, col) => {
-        // 纵向
-        for (let i = 0; i < row; i++) {
-            if (board[i][col] === 'Q') return false
-        }
-
         for (let i = row - 1; i >= 0; i--) {
-            const distance = row - i
-
-            // 左上
-            if (board[i][col - distance] === 'Q') return false
-
-            // 右上
-            if (board[i][col + distance] === 'Q') return false
+            const currentRow = chessboard[i]
+            const horizontalDistance = row - i
+            if (currentRow[col]) return false
+            if (currentRow[col - horizontalDistance]) return false
+            if (currentRow[col + horizontalDistance]) return false
         }
-
         return true
     }
 
@@ -39,11 +31,11 @@ var totalNQueens = function (n) {
         for (let col = 0; col < n; col++) {
             if (!isValid(row, col)) continue
 
-            board[row][col] = 'Q'
+            chessboard[row][col] = true
 
             backtrack(row + 1)
 
-            board[row][col] = '.'
+            chessboard[row][col] = false
         }
 
         return count
