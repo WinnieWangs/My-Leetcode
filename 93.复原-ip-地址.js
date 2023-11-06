@@ -29,6 +29,7 @@ var restoreIpAddresses = function (s) {
         }
 
         for (let i = start; i < s.length; i++) {
+            if (path.length >= 4) break
             const stringBetweenStartAndCurrentIndex = s.substring(start, i + 1)
 
             if (isValid(stringBetweenStartAndCurrentIndex)) {
