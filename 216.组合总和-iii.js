@@ -10,18 +10,17 @@
  * @param {number} n
  * @return {number[][]}
  */
-var combinationSum3 = function(k, n) {
-    const res = []
+var combinationSum3 = function (k, n) {
     const path = []
+    const res = []
 
     const max = Math.min(n, 9)
 
     const backtrack = (amount, start) => {
-        if (amount === 0 && path.length === k) {
-            return res.push(path.slice())
-        }
+        if (amount === 0 && path.length === k) return res.push([...path])
 
-        for(let i = start; i <= max; i++) {
+        for (let i = start; i <= max; i++) {
+            if (path.length > n) break
             if (amount - i < 0) break
 
             path.push(i)
@@ -32,9 +31,7 @@ var combinationSum3 = function(k, n) {
         }
     }
 
-    backtrack(n, 1)
-
-    return res
+    return backtrack(n, 1), res
 };
 // @lc code=end
 
