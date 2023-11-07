@@ -10,7 +10,8 @@
  * @return {void} Do not return anything, modify board in-place instead.
  */
 var solveSudoku = function (board) {
-    function isValid(row, col, val) {
+
+    const isValid = (row, col, val) => {
         let len = board.length
         // 行不能重复
         for (let i = 0; i < len; i++) {
@@ -34,30 +35,32 @@ var solveSudoku = function (board) {
                 }
             }
         }
-
         return true
     }
 
-    function backTracking() {
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j++) {
-                if (board[i][j] !== '.') continue
-                for (let val = 1; val <= 9; val++) {
-                    if (isValid(i, j, `${val}`)) {
-                        board[i][j] = `${val}`
-                        if (backTracking()) return true
+    const backtrack = () => {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (board[row][col] !== '.') continue
 
-                        board[i][j] = `.`
-                    }
+                for (let num = 1; num <= 9; num++) {
+                    if (!isValid(row, col, num + '')) continue
+
+                    board[row][col] = num + ''
+
+                    if (backtrack()) return true
+
+                    board[row][col] = '.'
                 }
+
                 return false
             }
         }
+
         return true
     }
-    backTracking()
-    return board
 
+    return backtrack(), board
 };
 // @lc code=end
 
