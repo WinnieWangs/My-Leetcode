@@ -11,40 +11,35 @@
  * @return {number[][]}
  */
 var combinationSum2 = function(candidates, target) {
-    candidates = candidates.sort((a, b) => a - b)
+   const result = []
 
-    const visited = []
+   const path = []
 
-    const res = []
+   candidates = candidates.sort((a, b) => a - b)
 
-    const path = []
+   const visited = []
 
-    const len = candidates.length
+   const backtrack = (amount, start = 0) => {
+        if (amount === 0) {
+            return result.push(path.slice())
+        } 
 
-    let amount = 0
+        for(let i = start; i < candidates.length; i++) {
+            if (candidates[i] > amount) break
 
-    const backtrack = (preIndex) => {
-        if (amount === target) return res.push(path.slice())
-
-        for (let i = 0; i < len; i++) {
-            if (preIndex > i) continue
-            if (visited[i]) continue
-            if (amount + candidates[i] > target) break;
-            if (candidates[i] === candidates[i-1] && !visited[i-1]) continue
+            if (i > 0 && candidates[i] === candidates[i - 1] && !visited[i - 1]) continue
 
             path.push(candidates[i])
             visited[i] = true
-            amount += candidates[i]
 
-            backtrack(i)
+            backtrack(amount - candidates[i], i + 1)
 
             path.pop()
             visited[i] = false
-            amount -= candidates[i]
         }
-    }
+   }
 
-    return backtrack(), res
+   return backtrack(target), result
 };
 // @lc code=end
 
